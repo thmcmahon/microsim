@@ -14,7 +14,7 @@
 #' @import ozTaxData
 microsim <- function(keep_df = FALSE, ...) {
   employment_growth <- c(.015, .019, .019, .0175, .015, .0125)
-  sample_13_14 <- uprate_data(sample_13_14)
+  tax_file <- uprate_data(ozTaxData::sample_13_14)
   tax_file$difference <- sapply(tax_file$Taxable_Income,
                                 function(x) calculate_tax(x, ...)$difference)
 

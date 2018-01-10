@@ -55,7 +55,7 @@ calculate_tax <- function(income,
     ml_change <- medicare_levy(income, rate = change_ml_rate,
                                lower_bound_single = change_ml_taper_start)
   } else if (change_ml_progressive == TRUE) {
-    ml_change <- ml_progressive(income, cutoff = cutoff,
+    ml_change <- ml_progressive(income, cutoff = change_ml_cutoff,
                                 base_rate = change_ml_rate,
                                 increase_rate = change_ml_prog_rate)
   }
