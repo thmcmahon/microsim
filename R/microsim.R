@@ -25,11 +25,13 @@ microsim <- function(keep_df = FALSE, ...) {
     revenue = sum(variable_compound(difference, employment_growth)) * 50 / 1e6,
     income_from = round(min(Taxable_Income), -2),
     income_to = round(max(Taxable_Income), -2),
-    avg_change = mean(difference)
+    avg_change = mean(difference),
+    avg_change_share = mean(difference) / mean(Taxable_Income)
   )
   gender <- tax_file %>% group_by(Gender) %>% summarise(
     revenue = sum(variable_compound(difference, employment_growth)) * 50 / 1e6,
-    avg_change = mean(difference)
+    avg_change = mean(difference),
+    avg_change_share = mean(difference) / mean(Taxable_Income)
   )
   revenue <- sum(variable_compound(tax_file$difference, employment_growth)) * 50 / 1e6
 
