@@ -47,14 +47,3 @@ plot.microsim <- function(x, type = "average", base_title = "base", change_title
     stop("Type must either by `average`, `distribution` or `distribution_share`")
   }
 }
-
-
-x$distribution %>%
-  select(decile, avg_change) %>%
-  ggplot(aes(as.factor(decile), avg_change)) +
-  geom_col() +
-  scale_y_continuous(labels = scales::dollar) +
-  labs(x = "Taxable Income Decile", y = "",
-       title = "Distribution of impact of changes",
-       subtitle = "Positive numbers mean increased tax, negative numbers mean a tax cut") +
-  theme_tom()
