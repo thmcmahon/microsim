@@ -12,9 +12,11 @@
 #'
 #' @import dplyr
 #' @import ozTaxData
-microsim <- function(keep_df = FALSE, ...) {
-  employment_growth <- c(.019, .019, .0175, .015, .0125, .0125)
-  tax_file <- uprate_data(ozTaxData::sample_14_15)
+microsim <- function(keep_df = FALSE,
+                     employment_growth = c(.019, .019, .0175, .015, .0125),
+                     wages_growth = c(.02, .019, .0225, .0275, .0325),
+                     ...) {
+  tax_file <- uprate_data(ozTaxData::sample_14_15, wages_growth)
   tax_file$difference <- sapply(tax_file$Taxable_Income,
                                 function(x) calculate_tax(x, ...)$difference)
 

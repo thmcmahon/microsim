@@ -12,7 +12,7 @@ print.microsim <- function(x) {
     cat(i, ':', paste0(x$input_params[[i]]), '\n')
   }
   cat('\n')
-  cat("Total revenue:", scales::dollar(x$revenue), "($m)\n")
+  cat("Total revenue:", scales::dollar(round(x$revenue, -1)), "($m)\n")
   cat("Number who will receive tax cut:", scales::comma(x$n_affected[[1]]), "\n")
   cat("Number who will receive tax increase:", scales::comma(x$n_affected[[2]]), "\n")
   cat("Number who will receive no change:", scales::comma(x$n_affected[[3]]), "\n\n")
