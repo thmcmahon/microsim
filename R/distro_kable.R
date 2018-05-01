@@ -9,11 +9,11 @@
 distro_kable <- function(x) {
   stopifnot(class(x) == "microsim")
   x$distribution %>%
-    mutate(decile = paste0(
-      decile, ' (', scales::comma(income_from), '-',
-      scales::comma(income_to), ')')) %>%
-    mutate(decile = recode(decile,
-                           `10 (124,400-7,345,400)` = '10 (124,400+)')) %>%
+    mutate(decile = ifelse(row_number(decile) < 10,
+           paste0(decile, ' (', scales::comma(income_from), '-',
+                  scales::comma(income_to), ')'),
+           paste0(decile, ' (', scales::comma(income_from), '+)'))
+      ) %>%
     select(decile, revenue, avg_change, avg_change_share) %>%
     mutate(avg_change_share = scales::percent(round(avg_change_share, 4))) %>%
     kable(digits = -1,
