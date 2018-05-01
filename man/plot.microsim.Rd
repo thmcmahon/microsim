@@ -4,7 +4,8 @@
 \alias{plot.microsim}
 \title{A plot method for microsim objects}
 \usage{
-\method{plot}{microsim}(x, type = "average")
+\method{plot}{microsim}(x, type = "average", base_title = "base",
+  change_title = "change")
 }
 \arguments{
 \item{x}{Microsimulation to plot}

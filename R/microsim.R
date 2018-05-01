@@ -13,8 +13,8 @@
 #' @import dplyr
 #' @import ozTaxData
 microsim <- function(keep_df = FALSE, ...) {
-  employment_growth <- c(.015, .019, .019, .0175, .015, .0125)
-  tax_file <- uprate_data(ozTaxData::sample_13_14)
+  employment_growth <- c(.019, .019, .0175, .015, .0125, .0125)
+  tax_file <- uprate_data(ozTaxData::sample_14_15)
   tax_file$difference <- sapply(tax_file$Taxable_Income,
                                 function(x) calculate_tax(x, ...)$difference)
 
@@ -41,7 +41,7 @@ microsim <- function(keep_df = FALSE, ...) {
 
   summary_tbl <- average_tax_table(...)
 
-  input_params <- match.call()
+  input_params <- as.list(match.call()[-1])
 
   if (keep_df == FALSE) {
     tax_file <- NULL

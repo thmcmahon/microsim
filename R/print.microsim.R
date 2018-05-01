@@ -7,8 +7,11 @@
 #' @import dplyr
 print.microsim <- function(x) {
   stopifnot(class(x) == "microsim")
-  cat("Parameters:\n")
-  cat(paste0(x$input_params), "\n\n")
+  cat('Parameters:\n')
+  for (i in names(x$input_params)) {
+    cat(i, ':', paste0(x$input_params[[i]]), '\n')
+  }
+  cat('\n')
   cat("Total revenue:", scales::dollar(x$revenue), "($m)\n")
   cat("Number who will receive tax cut:", scales::comma(x$n_affected[[1]]), "\n")
   cat("Number who will receive tax increase:", scales::comma(x$n_affected[[2]]), "\n")
