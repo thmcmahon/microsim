@@ -1,6 +1,15 @@
-#' Perform a microsimulation of tax changes using the 2013-14 two per cent sample of Australian taxpayers
+#' Perform a microsimulation of tax changes using the 2015-16 two per cent
+#' sample of Australian taxpayers.
 #'
-#' @param keep_df Whether to keep the amended tax file, mainly useful for debugging.
+#' @description
+#'
+#' The analysis year is 2019-20. The assumptions for employment growth and wages
+#' are from the 2017-18 MYEFO and are as follows.
+#'
+#' Wages 1.9%, 2.25%, 2.75%, 3.25% Employment 1.9%, 1.75%, 1.5%, 1.25%
+#'
+#' @param keep_df Whether to keep the amended tax file, mainly useful for
+#'   debugging.
 #' @param ... Parameters for the `calculate_tax` function
 #'
 #' @return A microsim object
@@ -13,10 +22,10 @@
 #' @import dplyr
 #' @import ozTaxData
 microsim <- function(keep_df = FALSE,
-                     employment_growth = c(.019, .019, .0175, .015, .0125),
-                     wages_growth = c(.02, .019, .0225, .0275, .0325),
+                     employment_growth = c(.019, .0175, .015, .0125),
+                     wages_growth = c(.019, .0225, .0275, .0325),
                      ...) {
-  tax_file <- uprate_data(ozTaxData::sample_14_15, wages_growth)
+  tax_file <- uprate_data(ozTaxData::sample_15_16, wages_growth)
   tax_file$difference <- sapply(tax_file$Taxable_Income,
                                 function(x) calculate_tax(x, ...)$difference)
 

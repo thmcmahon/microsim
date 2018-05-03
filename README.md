@@ -4,7 +4,7 @@ A micro-simulator of Australia's personal income tax system.
 
 This micro-simulator will do single year costing of tax changes as well as distributional and gender analysis.
 
-At the moment it uses the 2013-14 ATO 2 per cent sample as its base dataset and all analysis is for 2019-20.
+At the moment it uses the 2015-16 ATO 2 per cent sample as its base dataset and all analysis is for 2019-20.
 
 ## Dependencies
 
