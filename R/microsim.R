@@ -6,7 +6,8 @@
 #' The analysis year is 2019-20. The assumptions for employment growth and wages
 #' are from the 2017-18 MYEFO and are as follows.
 #'
-#' Wages 1.9%, 2.25%, 2.75%, 3.25% Employment 1.9%, 1.75%, 1.5%, 1.25%
+#' Wages 1.9%, 2.25%, 2.75%, 3.25%
+#' Employment 1.9%, 2.75%, 1.5%, 1.5%
 #'
 #' @param keep_df Whether to keep the amended tax file, mainly useful for
 #'   debugging.
@@ -22,7 +23,7 @@
 #' @import dplyr
 #' @import ozTaxData
 microsim <- function(keep_df = FALSE,
-                     employment_growth = c(.019, .0175, .015, .0125),
+                     employment_growth = c(.019, .0275, .015, .015),
                      wages_growth = c(.019, .0225, .0275, .0325),
                      ...) {
   tax_file <- uprate_data(ozTaxData::sample_15_16, wages_growth)
