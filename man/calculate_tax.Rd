@@ -10,11 +10,17 @@ calculate_tax(income, base_tax_brackets = c(18200, 37000, 87000, 180000, Inf),
   change_tax_rates = c(0, 0.19, 0.325, 0.37, 0.45),
   base_ml_taper_start = 21335, base_ml_rate = 0.02,
   change_ml_taper_start = 21335, change_ml_rate = 0.02,
-  base_lito_amt = 455, change_lito_amt = 455,
+  base_lito_amt = 445, change_lito_amt = 445,
   base_lito_taper_start = 37000, change_lito_taper_start = 37000,
   base_lito_taper_rate = 0.015, change_lito_taper_rate = 0.015,
   change_ml_progressive = FALSE, change_ml_cutoff = 87000,
-  change_ml_prog_rate = 0.025)
+  change_ml_prog_rate = 0.025, base_mlito_initial_value = 200,
+  base_mlito_increased_value = 530, base_mlito_taper_one_start = 37000,
+  base_mlito_taper_two_start = 90000, base_mlito_taper_in_rate = 0.03,
+  base_mlito_taper_out_rate = 0.015, change_mlito_initial_value = 200,
+  change_mlito_increased_value = 530, change_mlito_taper_one_start = 37000,
+  change_mlito_taper_two_start = 90000, change_mlito_taper_in_rate = 0.03,
+  change_mlito_taper_out_rate = 0.015, calculate_mlito = TRUE)
 }
 \arguments{
 \item{income}{Individual income}
@@ -51,7 +57,9 @@ calculate_tax(income, base_tax_brackets = c(18200, 37000, 87000, 180000, Inf),
 
 \item{change_ml_cutoff}{Where should the higher rate cut in under the 'change' case}
 
-\item{change_ml_prog_rate}{What shoudl the higher medicare levy rate be under the 'change' case}
+\item{change_ml_prog_rate}{What should the higher medicare levy rate be under the 'change' case}
+
+\item{calculate_mlito}{}
 }
 \value{
 A list of the amount of tax owed under both scenarios and the difference.

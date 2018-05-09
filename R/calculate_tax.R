@@ -17,7 +17,20 @@
 #' @param change_lito_taper_rate LITO taper rate under the 'change' case
 #' @param change_ml_progressive Whether to calculate a progressive medicare levy under the 'change' case
 #' @param change_ml_cutoff Where should the higher rate cut in under the 'change' case
-#' @param change_ml_prog_rate What shoudl the higher medicare levy rate be under the 'change' case
+#' @param change_ml_prog_rate What should the higher medicare levy rate be under the 'change' case
+#' @param base_lmito_initial_value
+#' @param base_lmito_increased_value
+#' @param base_lmito_taper_one_start
+#' @param base_lmito_taper_two_start
+#' @param base_lmito_taper_in_rate
+#' @param base_lmito_taper_out_rate
+#' @param change_lmito_initial_value
+#' @param change_lmito_increased_value
+#' @param change_lmito_taper_one_start
+#' @param change_lmito_taper_two_start
+#' @param change_lmito_taper_in_rate
+#' @param change_lmito_taper_out_rate
+#' @param calculate_lmito
 #'
 #' @return A list of the amount of tax owed under both scenarios and the difference.
 #' @export
@@ -44,7 +57,20 @@ calculate_tax <- function(income,
                           change_lito_taper_rate = .015,
                           change_ml_progressive = FALSE,
                           change_ml_cutoff = 87000,
-                          change_ml_prog_rate = .025) {
+                          change_ml_prog_rate = .025,
+                          base_lmito_initial_value = 200,
+                          base_lmito_increased_value = 530,
+                          base_lmito_taper_one_start = 37000,
+                          base_lmito_taper_two_start = 90000,
+                          base_lmito_taper_in_rate = .03,
+                          base_lmito_taper_out_rate = .015,
+                          change_lmito_initial_value = 200,
+                          change_lmito_increased_value = 530,
+                          change_lmito_taper_one_start = 37000,
+                          change_lmito_taper_two_start = 90000,
+                          change_lmito_taper_in_rate = .03,
+                          change_lmito_taper_out_rate = .015,
+                          calculate_lmito = TRUE) {
   tax_base <- income_tax(income, rates = base_tax_rates,
                          brackets = base_tax_brackets)
   tax_change <- income_tax(income, rates = change_tax_rates,
@@ -67,13 +93,31 @@ calculate_tax <- function(income,
                       taper_start = change_lito_taper_start,
                       taper_rate = change_lito_taper_rate)
 
-  base_tax_owed <- if(tax_base + ml_base + lito_base > 0) {
-    tax_base + ml_base + lito_base
+  if (calculate_lmito == TRUE) {
+    lmito_base <- lmito(income, initial_value = base_lmito_initial_value,
+                        increased_value = base_lmito_increased_value,
+                        taper_one_start = base_lmito_taper_one_start,
+                        taper_two_start = base_lmito_taper_two_start,
+                        taper_in_rate = base_lmito_taper_in_rate,
+                        taper_out_rate = base_lmito_taper_out_rate)
+    lmito_change <- lmito(income, initial_value = change_lmito_initial_value,
+                          increased_value = change_lmito_increased_value,
+                          taper_one_start = change_lmito_taper_one_start,
+                          taper_two_start = change_lmito_taper_two_start,
+                          taper_in_rate = change_lmito_taper_in_rate,
+                          taper_out_rate = change_lmito_taper_out_rate)
+  } else {
+    lmito_base <- 0
+    lmito_change <- 0
+  }
+
+  base_tax_owed <- if(tax_base + ml_base + lito_base + lmito_base > 0) {
+    tax_base + ml_base + lito_base + lmito_base
   } else {
     0
   }
-  change_tax_owed <- if(tax_change + ml_change + lito_change > 0) {
-    tax_change + ml_change + lito_change
+  change_tax_owed <- if(tax_change + ml_change + lito_change + lmito_change > 0) {
+    tax_change + ml_change + lito_change + lmito_change
   } else {
     0
   }

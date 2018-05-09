@@ -5,8 +5,8 @@
 \title{Perform a microsimulation of tax changes using the 2015-16 two per cent
 sample of Australian taxpayers.}
 \usage{
-microsim(keep_df = FALSE, employment_growth = c(0.019, 0.0175, 0.015,
-  0.0125), wages_growth = c(0.019, 0.0225, 0.0275, 0.0325), ...)
+microsim(keep_df = FALSE, employment_growth = c(0.019, 0.0275, 0.015,
+  0.015), wages_growth = c(0.019, 0.0225, 0.0275, 0.0325), ...)
 }
 \arguments{
 \item{keep_df}{Whether to keep the amended tax file, mainly useful for
@@ -21,7 +21,8 @@ A microsim object
 The analysis year is 2019-20. The assumptions for employment growth and wages
 are from the 2017-18 MYEFO and are as follows.
 
-Wages 1.9%, 2.25%, 2.75%, 3.25% Employment 1.9%, 1.75%, 1.5%, 1.25%
+Wages 1.9%, 2.25%, 2.75%, 3.25%
+Employment 1.9%, 2.75%, 1.5%, 1.5%
 }
 \examples{
 microsim(base_tax_brackets = c(18200, 37000, 80000, 1.8e5, Inf),
