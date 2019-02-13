@@ -6,11 +6,18 @@
 sample of Australian taxpayers.}
 \usage{
 microsim(keep_df = FALSE, employment_growth = c(0.019, 0.0275, 0.015,
-  0.015), wages_growth = c(0.019, 0.0225, 0.0275, 0.0325), ...)
+  0.015), wages_growth = c(0.019, 0.0225, 0.0275, 0.0325),
+  parallel = FALSE, ...)
 }
 \arguments{
 \item{keep_df}{Whether to keep the amended tax file, mainly useful for
 debugging.}
+
+\item{employment_growth}{A vector containing forecasts for employment growth}
+
+\item{wages_growth}{A vector containing forecasts for wages growth}
+
+\item{parallel}{Should this compute using the parallel package}
 
 \item{...}{Parameters for the `calculate_tax` function}
 }

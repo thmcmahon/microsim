@@ -4,7 +4,8 @@
 \alias{average_tax_table}
 \title{Create an average tax table comparing two scenarios using the `calculate_tax` function}
 \usage{
-average_tax_table(inc_start = 1000, inc_stop = 3e+05, step = 1000, ...)
+average_tax_table(inc_start = 1000, inc_stop = 3e+05, step = 1000,
+  ...)
 }
 \arguments{
 \item{inc_start}{Income range start}

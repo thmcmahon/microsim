@@ -12,6 +12,9 @@
 #' @param keep_df Whether to keep the amended tax file, mainly useful for
 #'   debugging.
 #' @param ... Parameters for the `calculate_tax` function
+#' @param employment_growth A vector containing forecasts for employment growth
+#' @param wages_growth A vector containing forecasts for wages growth
+#' @param parallel Should this compute using the parallel package
 #'
 #' @return A microsim object
 #' @export
@@ -22,14 +25,22 @@
 #'
 #' @import dplyr
 #' @import ozTaxData
+#' @import parallel
 microsim <- function(keep_df = FALSE,
                      employment_growth = c(.019, .0275, .015, .015),
                      wages_growth = c(.019, .0225, .0275, .0325),
+                     parallel = FALSE,
                      ...) {
   tax_file <- uprate_data(ozTaxData::sample_15_16, wages_growth)
-  tax_file$difference <- sapply(tax_file$Taxable_Income,
-                                function(x) calculate_tax(x, ...)$difference)
-
+  if (parallel == TRUE) {
+    n_cores <- detectCores() - 1
+    cl <- makeCluster(n_cores)
+    tax_file$difference <- parSapply(cl, tax_file$Taxable_Income,
+                                   function(x) calculate_tax(x, ...)$difference)
+  } else {
+    tax_file$difference <- sapply(tax_file$Taxable_Income,
+                                  function(x) calculate_tax(x, ...)$difference)
+  }
   tax_file <- tax_file %>% mutate(decile = ntile(Taxable_Income, 10)) %>%
     select(Gender, decile, Partner_status, Tot_inc_amt, Taxable_Income,
            difference)
