@@ -22,16 +22,16 @@
 calculate_tax <- function(income,
                           base_income_tax_parameters = list(
                             rates = c(0, .19, .325, .37, .45),
-                            brackets = c(18200, 37000, 87000, 180000, Inf)),
+                            brackets = c(18200, 37000, 90000, 180000, Inf)),
                           change_income_tax_parameters = list(
                             rates = c(0, .19, .325, .37, .45),
-                            brackets = c(18200, 37000, 87000, 180000, Inf)),
+                            brackets = c(18200, 37000, 90000, 180000, Inf)),
                           base_ml_parameters = list(
                             rate = .02,
-                            lower_bound_single = 21665),
+                            lower_bound_single = 21980),
                           change_ml_parameters = list(
                             rate = .02,
-                            lower_bound_single = 21665),
+                            lower_bound_single = 21980),
                           base_lito_parameters = list(
                             value = 445,
                             taper_start = 37000,

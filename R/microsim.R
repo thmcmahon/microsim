@@ -1,13 +1,13 @@
-#' Perform a microsimulation of tax changes using the 2015-16 two per cent
+#' Perform a microsimulation of tax changes using the 2016-17 two per cent
 #' sample of Australian taxpayers.
 #'
 #' @description
 #'
 #' The analysis year is 2019-20. The assumptions for employment growth and wages
-#' are from the 2017-18 MYEFO and are as follows.
+#' are from the 2018-19 Budget and are as follows.
 #'
-#' Wages 1.9%, 2.25%, 2.75%, 3.25%
-#' Employment 1.9%, 2.75%, 1.5%, 1.5%
+#' Wages 2.25%, 2.75%, 3.25%, 3.5%
+#' Employment 2.75%, 1.5%, 1.5%, 1.25%
 #'
 #' @param keep_df Whether to keep the amended tax file, mainly useful for
 #'   debugging.
@@ -27,11 +27,11 @@
 #' @import ozTaxData
 #' @import parallel
 microsim <- function(keep_df = FALSE,
-                     employment_growth = c(.019, .0275, .015, .015),
-                     wages_growth = c(.019, .0225, .0275, .0325),
+                     employment_growth = c(.0275, .015, .015, .0125),
+                     wages_growth = c(.0225, .0275, .0325, .035),
                      parallel = FALSE,
                      ...) {
-  tax_file <- uprate_data(ozTaxData::sample_15_16, wages_growth)
+  tax_file <- uprate_data(ozTaxData::sample_16_17, wages_growth)
   if (parallel == TRUE) {
     n_cores <- detectCores() - 1
     cl <- makeCluster(n_cores)
