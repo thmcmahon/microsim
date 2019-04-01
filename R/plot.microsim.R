@@ -43,6 +43,17 @@ plot.microsim <- function(x, type = "average", base_title = "base", change_title
            title = "Distribution of impact of changes as percentage of income",
            subtitle = "Positive numbers mean increased tax, negative numbers mean a tax cut") +
       theme_tom()
+  } else if (type == "dollar_change") {
+    x$summary_tbl %>%
+      filter(income < 200000) %>%
+      ggplot(aes(x = income, y = difference)) +
+      geom_line() +
+      scale_y_continuous("", labels = scales::dollar) +
+      scale_x_continuous("", labels = scales::dollar) +
+      labs(x = "Income", y = "",
+           title = "Distribution of impact of changes in dollars",
+           subtitle = "Positive numbers mean increased tax, negative numbers mean a tax cut") +
+      theme_tom()
   } else {
     stop("Type must either by `average`, `distribution` or `distribution_share`")
   }
